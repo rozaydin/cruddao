@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+    <bean name="envSimListener" class="com.yaltes.ymms.simulator.ais.service.EnvSimListener">
+        <constructor-arg index="0" type="int" value="1133"/>
+        <constructor-arg index="1" type="java.lang.String" value="255.255.255.255"/>
+    </bean>
+    -->
+
+    <!-- parser bean -->
+    <!--
+    <bean name="parser" class="com.yaltes.fedss.lib.envsim.parser.Parser">
+    </bean>
+    -->
+
+    <!-- listener bean -->
+    <!--
+    <bean name="envSimHandler" class="com.yaltes.ymms.simulator.ais.service.EnvSimHandler">
+    </bean>
+    -->
+
+    <!-- initializer bean -->
+    <!--
+    <bean id="initializer" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="parser" />
+        <property name="targetMethod" value="addMessageHandler" />
+        <property name="arguments" ref="envSimHandler" />
+    </bean>
+    -->
+
+    <!-- Apache Commons Data Source -->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="org.h2.Driver" />
+        <property name="url" value="jdbc:h2:mem:ais" />
+        <property name="initialSize" value="2" />
+        <property name="maxTotal" value="2" />
+    </bean>
+
+    <!-- jdbc template -->
+    <bean name="JdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg> <ref bean="dataSource"/></constructor-arg>
+    </bean>
+
+    <!-- h2 Tools -->
+    <!-- http://stackoverflow.com/questions/17803718/view-content-of-embedded-h2-database-started-by-spring -->
+    <!--
+    <bean id="h2Server" class="org.h2.tools.Server" factory-method="createTcpServer" init-method="start" destroy-method="stop" depends-on="h2WebServer">
+        <constructor-arg value="-tcp,-tcpAllowOthers,-tcpPort,9092"/>
+    </bean>
+
+    <bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer" init-method="start" destroy-method="stop">
+        <constructor-arg value="-web,-webAllowOthers,-webPort,8082"/>
+    </bean>
+    -->
+
+</beans>
